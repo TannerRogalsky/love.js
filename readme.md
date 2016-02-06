@@ -17,14 +17,25 @@ Here are two live games:
 Python will allow you to package your game into a format that Emscripten can read. It will also let you run a simple web server for testing.
 
 ##Usage
+###Get the code.
+1. Clone the repository. `git clone https://github.com/TannerRogalsky/love.js.git`
+2. Clone the submodules: `git submodule update --init --recursive`
+
+###Package your game
 1. Navigate into the `debug` folder.
 2. Package your game.
-  - `python ../file_packager.py game.data --preload [path-to-game]@/ --js-output=game.js`
+  - `python ../emscripten/tools/file_packager.py game.data --preload [path-to-game]@/ --js-output=game.js`
   - This should output two files: `game.data` and `game.js` into the `debug` folder.
   - Make you include the '@/' after the path to your game source. This will tell the file packager to place your game at the root of Emscripten's file system.
-3. Run a web server.
+
+###Test it
+1. Run a web server.
   - `python -m SimpleHTTPServer 8000` will work.
-4. Open `localhost:8000` in the browser of your choice.
+2. Open `localhost:8000` in the browser of your choice.
+
+###Release it
+1. If everything looks good, nagivate to the `release` folder. Package and test your game for release.
+2. The `release` folder can now be copied to a webserver. A simple static webserver should suffice.
 
 ##Issues
 Some things, like threads, don't have browser support yet. Please check the project issues for known problems.
