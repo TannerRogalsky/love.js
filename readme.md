@@ -41,4 +41,6 @@ Python will allow you to package your game into a format that Emscripten can rea
 Some things, like threads, don't have browser support yet. Please check the project issues for known problems.
 
 ##Contributing
+Please consider submitting a test. Any functionality that isn't covered in `spec/tests` would be very useful.
+
 The build process for this project is still a very manual process and is not ready to be shared. Feel free to keep an eye on the `emscripten` branch of [my LÖVE fork](https://bitbucket.org/TannerRogalsky/love) if you're really curious.
