@@ -70,7 +70,6 @@ end
 local MeshBatchesTest = {}
 MeshBatchesTest.__index = MeshBatchesTest
 function create()
-  print('yo')
   local numBricks = 50
 
   local image = love.graphics.newImage('images/bricks.jpg')
