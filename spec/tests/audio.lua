@@ -21,6 +21,7 @@ end
 function Audio:update(dt)
   local active_source = self.sources[self.active_source_index]
   if active_source:isStopped() then
+    love.audio.setVolume(math.random())
     self.active_source_index = self.active_source_index % #self.sources + 1
     self.sources[self.active_source_index]:rewind()
     self.sources[self.active_source_index]:play()
@@ -29,6 +30,7 @@ end
 
 function Audio:draw()
   love.graphics.print('Playing: ' .. files[self.active_source_index], 100, 100)
+  love.graphics.print('Volume: ' .. tostring(love.audio.getVolume()))
 end
 
 return create
