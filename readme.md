@@ -6,8 +6,9 @@ This is [LÖVE](https://love2d.org/) ported to the web using [Emscripten](https:
 It differs from [Motor](https://github.com/rnlf/motor) or [Punchdrunk](https://github.com/TannerRogalsky/punchdrunk) in that it is not a reimplementation but a direct port of the existing LÖVE v0.10.0 code with very few code modifications. As such, it should be at feature parity, as long as the browser it's running in supports a given feature.
 
 ##Examples
-Here are two live games:
+Here are some live games:
 
+- [Mari0](http://tannerrogalsky.com/mari0/)
 - [Friendshape](http://tannerrogalsky.com/friendshape)
 - [Mr. Rescue](http://tannerrogalsky.com/mrrescue/)
 
