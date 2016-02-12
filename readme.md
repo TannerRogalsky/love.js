@@ -13,9 +13,9 @@ Here are some live games:
 - [Mr. Rescue](http://tannerrogalsky.com/mrrescue/)
 
 ##Dependencies
-- Python
+- Python 2.7
 
-Python will allow you to package your game into a format that Emscripten can read. It will also let you run a simple web server for testing.
+Python 2.7 will allow you to package your game into a format that Emscripten can read. It will also let you run a simple web server for testing. Python 3.5 is not supported at this time.
 
 ##Usage
 ###Get the code.
