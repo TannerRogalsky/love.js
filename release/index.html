@@ -67,11 +67,11 @@
           return canvas;
         })(),
         setStatus: function(text) {
-          if (text) {
-            drawLoadingText(text);
-          } else {
+          if (text === 'Executing Application...') {
             document.getElementById('loadingCanvas').style.display = 'none';
             document.getElementById('canvas').style.display = 'block';
+          } else if (text) {
+            drawLoadingText(text);
           }
         },
         totalDependencies: 0,
