@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 h1 {
     font-family: arial;
     color: rgb( 11, 86, 117 );
