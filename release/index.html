@@ -5,20 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Game Title</title>
 
-    <style>
-      body {
-        font-family: arial;
-        margin: 0;
-        padding: none;
-      }
-
-      /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-      #canvas {
-        padding-right: 0;
-        display: none;
-        border: 0px none;
-      }
-    </style>
+    <!-- Load custom style sheet -->
+    <link rel="stylesheet" type="text/css" href="theme/love.css">
   </head>
   <body>
     <center>
@@ -34,12 +22,12 @@
       function drawLoadingText(text) {
         var canvas = loadingContext.canvas;
 
-        loadingContext.fillStyle = 'white';
+        loadingContext.fillStyle = "rgb(142, 195, 227)";
         loadingContext.fillRect(0, 0, canvas.scrollWidth, canvas.scrollHeight);
 
         loadingContext.font = '2em arial';
         loadingContext.textAlign = 'center'
-        loadingContext.fillStyle = 'black';
+        loadingContext.fillStyle = "rgb( 11, 86, 117 )";
         loadingContext.fillText(text, canvas.scrollWidth / 2, canvas.scrollHeight / 2);
 
         loadingContext.fillText("Powered By Emscripten.", canvas.scrollWidth / 2, canvas.scrollHeight / 4);
@@ -95,5 +83,8 @@
     </script>
     <script type="text/javascript" src="game.js"></script>
     <script async type="text/javascript" src="love.js"></script>
+    <footer>
+      <p>Built with <a href="https://github.com/TanRogalsky/love.js">love.js</a></p>
+    </footer>
   </body>
 </html>
