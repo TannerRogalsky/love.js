@@ -1284,10 +1284,15 @@
             progressElement.max = null;
             progressElement.hidden = true;
             if (!text) spinnerElement.style.display = 'none';
+            if (Module.didSyncFS && Module.remainingDependencies === 0) {
+              Module.callMain(Module.arguments);
+            }
           }
           statusElement.innerHTML = text;
         },
+        didSyncFS: false,
         totalDependencies: 0,
+        remainingDependencies: 0,
         monitorRunDependencies: function(left) {
           this.totalDependencies = Math.max(this.totalDependencies, left);
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');

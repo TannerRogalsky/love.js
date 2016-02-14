@@ -67,15 +67,19 @@
           return canvas;
         })(),
         setStatus: function(text) {
-          if (text === 'Executing Application...') {
+          if (text) {
+            drawLoadingText(text);
+          } else if (Module.didSyncFS && Module.remainingDependencies === 0) {
+            Module.callMain(Module.arguments);
             document.getElementById('loadingCanvas').style.display = 'none';
             document.getElementById('canvas').style.display = 'block';
-          } else if (text) {
-            drawLoadingText(text);
           }
         },
+        didSyncFS: false,
         totalDependencies: 0,
+        remainingDependencies: 0,
         monitorRunDependencies: function(left) {
+          this.remainingDependencies = left;
           this.totalDependencies = Math.max(this.totalDependencies, left);
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
         }
