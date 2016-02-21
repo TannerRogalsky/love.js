@@ -37,7 +37,10 @@ Python 2.7 will allow you to package your game into a format that Emscripten can
 
 ###Release it
 1. If everything looks good, nagivate to the `release` folder. Package and test your game for release.
-2. The `release` folder can now be copied to a webserver. A simple static webserver should suffice.
+2. The `release-compatibility` folder can now be copied to a webserver. A simple static webserver should suffice.
+
+####Release Types
+`release-compatibility` is recommended if the performance it yields is adequate. The difference between `compatibility` and `performance` is that `performance` is compiled with exception catching disabled and memory growth disabled. This means that you will not be able to rely on catching exceptions from C++ in your code and you may need to set `TOTAL_MEMORY` on the `Module` object to indicate how much memory your game will require.
 
 ##Issues
 Some things, like threads, don't have browser support yet. Please check the project issues for known problems.
