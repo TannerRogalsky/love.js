@@ -27,7 +27,7 @@ Python 2.7 will allow you to package your game into a format that Emscripten can
 2. Package your game.
   - `python ../emscripten/tools/file_packager.py game.data --preload [path-to-game]@/ --js-output=game.js`
   - This should output two files: `game.data` and `game.js` into the `debug` folder.
-  - Make you include the '@/' after the path to your game source. This will tell the file packager to place your game at the root of Emscripten's file system.
+  - Make sure you include the '@/' after the path to your game source. This will tell the file packager to place your game at the root of Emscripten's file system.
   - Make sure your [path-to-game] does not contain any non ascii characters
 
 ###Test it
