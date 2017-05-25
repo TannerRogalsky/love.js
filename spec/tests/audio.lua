@@ -1,4 +1,4 @@
-local files = {'cjump.ogg', 'electronic.mp3'}
+local files = {'cjump.ogg', 'electronic.mp3', 'Jump19.wav'}
 
 local Audio = {}
 Audio.__index = Audio
@@ -20,17 +20,24 @@ end
 
 function Audio:update(dt)
   local active_source = self.sources[self.active_source_index]
-  if active_source:isStopped() then
-    love.audio.setVolume(math.random())
+  print(files[self.active_source_index], active_source:isPlaying())
+  if active_source:isPlaying() == false then
     self.active_source_index = self.active_source_index % #self.sources + 1
-    self.sources[self.active_source_index]:rewind()
-    self.sources[self.active_source_index]:play()
+    active_source = self.sources[self.active_source_index]
+    -- active_source:rewind()
+    active_source:play()
+    active_source:setVolume(math.random())
   end
 end
 
 function Audio:draw()
   love.graphics.print('Playing: ' .. files[self.active_source_index], 100, 100)
-  love.graphics.print('Volume: ' .. tostring(love.audio.getVolume()))
+  love.graphics.print('Volume: ' .. tostring(self.sources[self.active_source_index]:getVolume()))
+end
+
+function Audio:cleanup()
+  local active_source = self.sources[self.active_source_index]
+  active_source:stop()
 end
 
 return create

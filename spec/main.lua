@@ -80,6 +80,7 @@ function love.mousepressed(x, y, button, istouch)
   if x < widest_text_width then
     local i = math.ceil(y / dy)
     if i <= #test_files then
+      if current_test.cleanup then current_test:cleanup() end
       selected_test_file_index = i
       current_test = tests[test_files[selected_test_file_index]]()
     end
@@ -92,4 +93,8 @@ function love.mousereleased(x, y, button, istouch)
   if current_test and current_test.mousereleased then
     current_test:mousereleased(x, y, button, istouch)
   end
+end
+
+function love.quit()
+  if current_test.cleanup then current_test:cleanup() end
 end

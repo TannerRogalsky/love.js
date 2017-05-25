@@ -5,7 +5,7 @@ function create()
   local snd;
   local relative;
 
-  snd = love.audio.newSource('audio/cjump_mono.wav', 'static')
+  snd = love.audio.newSource('audio/cjump_mono.wav', 'stream')
   snd:setLooping(true);
   snd:play();
 
@@ -44,6 +44,7 @@ function RelativeAudio:keypressed(key)
 end
 
 function RelativeAudio:draw()
+  self.snd:play()
   love.graphics.print('Relative: ' .. tostring(self.snd:isRelative()), 20, 20);
 
   local px, py, pz = love.audio.getPosition()
@@ -55,6 +56,10 @@ function RelativeAudio:draw()
   local fx, fy, fz, ux, uy, uz = love.audio.getOrientation()
   love.graphics.print('Listener Forward Vector: (x = ' .. fx .. ', y = ' .. fy .. ', z = ' .. fz .. ')', 20, 80);
   love.graphics.print('Listener Up Vector: (x = ' .. ux .. ', y = ' .. uy .. ', z = ' .. uz .. ')', 20, 100);
+end
+
+function RelativeAudio:cleanup()
+  self.snd:stop()
 end
 
 return create
