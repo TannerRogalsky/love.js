@@ -13,7 +13,7 @@ function create()
       kill = channel:pop()
     end
   ]])
-  print('start', thread:start())
+  thread:start()
 
   local test = {
     channel = channel,

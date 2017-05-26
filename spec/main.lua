@@ -1,3 +1,5 @@
+local suit = require('suit')
+
 local test_files = love.filesystem.getDirectoryItems('tests')
 local tests = {}
 for i,test_file in ipairs(test_files) do
@@ -27,34 +29,55 @@ widest_text_width = widest_text_width + horizontal_padding * 2
 local function draw_test_list()
   for i,test_file in ipairs(test_files) do
     local y = (i - 1) * dy + font_height / 2
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.print(test_file, horizontal_padding, y)
-
-    if i == selected_test_file_index then
-      love.graphics.setColor(255, 0, 255)
-    else
-      love.graphics.setColor(255, 255, 0)
+    if suit.Button(test_file, suit.layout:row(widest_text_width, dy)).hit then
+      if current_test.cleanup then current_test:cleanup() end
+      selected_test_file_index = i
+      current_test = tests[test_files[selected_test_file_index]]()
+      love.window.setTitle(test_file)
     end
-    love.graphics.rectangle('line', 0, y - font_height, widest_text_width, dy)
   end
-
-  love.graphics.setColor(255, 255, 255)
-  love.graphics.line(widest_text_width, 0, widest_text_width, love.graphics.getHeight())
 end
 
 function love.load(args)
+  local k_args = {}
+  for _,arg in ipairs(args) do
+    local key, value = arg:match("(.*)=(.*)")
+    key, value = key or arg, value or true
+    k_args[key] = value
+  end
+
   test_canvas = love.graphics.newCanvas(love.graphics.getWidth() - widest_text_width, love.graphics.getHeight())
-  current_test = tests[test_files[selected_test_file_index]]()
+  if k_args.test and tests[k_args.test] then
+    current_test = tests[k_args.test]()
+    love.window.setTitle(k_args.test)
+    for i,base in ipairs(test_files) do
+      if k_args.test == base then
+        selected_test_file_index = i
+        break
+      end
+    end
+  else
+    current_test = tests[test_files[selected_test_file_index]]()
+    love.window.setTitle(test_files[selected_test_file_index])
+  end
 end
 
 function love.update(dt)
+  suit.layout:reset(0, 1)
+  draw_test_list()
+  
   if current_test and current_test.update then
     current_test:update(dt)
   end
 end
 
 function love.draw()
-  draw_test_list()
+  love.graphics.setColor(0.2, 0.2, 0.2)
+  love.graphics.rectangle('fill', 0, 0, widest_text_width, love.graphics.getHeight())
+  
+  love.graphics.setColor(1, 1, 1)
+  suit.draw()
+  
   if current_test and current_test.draw then
     love.graphics.setCanvas(test_canvas)
     love.graphics.clear()
@@ -65,7 +88,9 @@ function love.draw()
 end
 
 function love.keypressed(key, scancode, isrepeat)
-  if current_test and current_test.keypressed then
+  if key == 'escape' then
+    love.event.quit()
+  elseif current_test and current_test.keypressed then
     current_test:keypressed(key, scancode, isrepeat)
   end
 end
@@ -77,14 +102,7 @@ function love.mousemoved(x, y, dx, dy)
 end
 
 function love.mousepressed(x, y, button, istouch)
-  if x < widest_text_width then
-    local i = math.ceil(y / dy)
-    if i <= #test_files then
-      if current_test.cleanup then current_test:cleanup() end
-      selected_test_file_index = i
-      current_test = tests[test_files[selected_test_file_index]]()
-    end
-  elseif current_test and current_test.mousepressed then
+  if current_test and current_test.mousepressed then
     current_test:mousepressed(x, y, button, istouch)
   end
 end

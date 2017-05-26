@@ -5,7 +5,7 @@ function create()
   local snd;
   local relative;
 
-  snd = love.audio.newSource('audio/cjump_mono.wav', 'stream')
+  snd = love.audio.newSource('audio/the_entertainer.wav', 'stream')
   snd:setLooping(true);
   snd:play();
 

@@ -20,7 +20,6 @@ end
 
 function Audio:update(dt)
   local active_source = self.sources[self.active_source_index]
-  print(files[self.active_source_index], active_source:isPlaying())
   if active_source:isPlaying() == false then
     self.active_source_index = self.active_source_index % #self.sources + 1
     active_source = self.sources[self.active_source_index]
