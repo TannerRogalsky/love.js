@@ -26,13 +26,17 @@ end
 function RelativeAudio:keypressed(key)
   -- Move the listener via WASD.
   if key == 'a' then
-      self.x = self.x - 1;
+    self.x = self.x - 1;
   elseif key == 'd' then
-      self.x = self.x + 1;
+    self.x = self.x + 1;
   elseif key == 'w' then
-      self.y = self.y - 1;
+    self.y = self.y - 1;
   elseif key == 's' then
-      self.y = self.y + 1;
+    self.y = self.y + 1;
+  elseif key == '=' then
+    self.snd:setPitch(self.snd:getPitch() + 0.1)
+  elseif key == '-' then
+    self.snd:setPitch(math.max(0, self.snd:getPitch() - 0.1))
   end
   love.audio.setPosition(self.x, self.y, self.z);
 
@@ -45,6 +49,7 @@ end
 
 function RelativeAudio:draw()
   self.snd:play()
+  love.graphics.print('Move the listener via WASD.', 20, 0)
   love.graphics.print('Relative: ' .. tostring(self.snd:isRelative()), 20, 20);
 
   local px, py, pz = love.audio.getPosition()
@@ -56,6 +61,9 @@ function RelativeAudio:draw()
   local fx, fy, fz, ux, uy, uz = love.audio.getOrientation()
   love.graphics.print('Listener Forward Vector: (x = ' .. fx .. ', y = ' .. fy .. ', z = ' .. fz .. ')', 20, 80);
   love.graphics.print('Listener Up Vector: (x = ' .. ux .. ', y = ' .. uy .. ', z = ' .. uz .. ')', 20, 100);
+  
+  love.graphics.print('Source time: (seconds = ' .. self.snd:tell() .. ', samples = ' .. self.snd:tell('samples') .. ')', 20, 120);
+  love.graphics.print('Source pitch: ' .. self.snd:getPitch(), 20, 140)
 end
 
 function RelativeAudio:cleanup()

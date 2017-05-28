@@ -1231,7 +1231,7 @@
       var Module = {
         preRun: [],
         postRun: [],
-        arguments: ['./'],
+        arguments: ['./', 'test=meshed_batches'],
         print: (function() {
           var element = document.getElementById('output');
           if (element) element.value = ''; // clear browser cache
@@ -1284,13 +1284,9 @@
             progressElement.max = null;
             progressElement.hidden = true;
             if (!text) spinnerElement.style.display = 'none';
-            if (Module.didSyncFS && Module.remainingDependencies === 0) {
-              Module.callMain(Module.arguments);
-            }
           }
           statusElement.innerHTML = text;
         },
-        didSyncFS: false,
         totalDependencies: 0,
         remainingDependencies: 0,
         monitorRunDependencies: function(left) {
@@ -1307,8 +1303,12 @@
           if (text) Module.printErr('[post-exception status] ' + text);
         };
       };
+
+      var applicationLoad = function(e) {
+        Love(Module);
+      }
     </script>
     <script type="text/javascript" src="game.js"></script>
-    <script async type="text/javascript" src="love.js"></script>
+    <script async type="text/javascript" src="love.js" onload="applicationLoad(this)""></script>
   </body>
 </html>

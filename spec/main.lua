@@ -1,4 +1,4 @@
-local suit = require('suit')
+local suit = require('SUIT')
 
 local test_files = love.filesystem.getDirectoryItems('tests')
 local tests = {}

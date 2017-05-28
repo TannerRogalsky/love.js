@@ -42,7 +42,7 @@
       }, false);
 
       var Module = {
-        arguments: ['./'],
+        arguments: ['./', 'test=meshed_batches'],
         printErr: console.error.bind(console),
         canvas: (function() {
           var canvas = document.getElementById('canvas');
@@ -78,9 +78,13 @@
           if (text) Module.printErr('[post-exception status] ' + text);
         };
       };
+
+      var applicationLoad = function(e) {
+        Love(Module);
+      }
     </script>
     <script type="text/javascript" src="game.js"></script>
-    <script async type="text/javascript" src="love.js"></script>
+    <script async type="text/javascript" src="love.js" onload="applicationLoad(this)"></script>
     <footer>
       <p>Built with <a href="https://github.com/TannerRogalsky/love.js">love.js</a></p>
     </footer>
