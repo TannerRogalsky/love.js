@@ -1,6 +1,6 @@
 [submodule "emscripten"]
 	path = emscripten
-	url = https://github.com/kripken/emscripten.git
+	url = https://github.com/TannerRogalsky/emscripten.git
 [submodule "spec/SUIT"]
 	path = spec/SUIT
 	url = https://github.com/TannerRogalsky/SUIT.git
