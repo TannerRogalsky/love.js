@@ -1,0 +1,3 @@
+src/game.js
+src/**/love.js
+src/**/pthread-main.js

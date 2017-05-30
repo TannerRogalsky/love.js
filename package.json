@@ -8,7 +8,10 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js src",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run lint",
+    "preversion": "npm run test",
+    "version": "./build_lovejs.js",
+    "postversion": "git push && git push --tags"
   },
   "bin": {
     "love.js": "./index.js"

@@ -13,8 +13,8 @@ commander
   .option('-m, --memory [bytes]', 'how much memory your game will require [16777216]', parseInt, 16777216)
   .arguments('<input> <output>')
   .action(function (input, output) {
-     commander.input = input;
-     commander.output = output;
+    commander.input = input;
+    commander.output = output;
   });
 commander._name = 'love.js';
 commander.parse(process.argv);
