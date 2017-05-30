@@ -10,7 +10,7 @@
     "lint": "eslint index.js src",
     "test": "npm run lint",
     "preversion": "npm run test",
-    "version": "./build_lovejs.js",
+    "version": "./build_lovejs.sh",
     "postversion": "git push && git push --tags"
   },
   "bin": {
