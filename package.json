@@ -3,7 +3,8 @@
   "version": "0.11.0-rc1",
   "description": "Tooling to support the Emscripten port of LÖVE.",
   "engines": {
-    "node": ">=7.10.0"
+    "node": ">=7.10.0",
+    "npm": ">=4.2.0"
   },
   "main": "index.js",
   "scripts": {
