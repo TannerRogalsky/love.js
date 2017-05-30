@@ -1,5 +1,6 @@
 Love.js
 ============
+[![Travis](https://img.shields.io/travis/TannerRogalsky/love.js.svg)]() [![npm](https://img.shields.io/npm/v/love.js.svg)]()
 
 This is [LÖVE](https://love2d.org/) ported to the web using [Emscripten](https://kripken.github.io/emscripten-site/).
 
