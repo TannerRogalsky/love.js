@@ -1,0 +1,40 @@
+{
+  "name": "love.js",
+  "version": "0.11.0",
+  "description": "Tooling to support the Emscripten port of LÖVE.",
+  "engines": {
+    "node": ">=7.10.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint index.js src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "love.js": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TannerRogalsky/love.js.git"
+  },
+  "author": "Tanner Rogalsky <tanner@tannerrogalsky.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TannerRogalsky/love.js/issues"
+  },
+  "homepage": "https://github.com/TannerRogalsky/love.js#readme",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1"
+  },
+  "dependencies": {
+    "commander": "^2.9.0",
+    "fs-extra": "^3.0.1",
+    "klaw-sync": "^2.1.0",
+    "mustache": "^2.3.0",
+    "uuid": "^3.0.1"
+  }
+}

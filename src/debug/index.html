@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Emscripten-Generated Code</title>
+    <title>{{title}}</title>
     <style>
       body {
         font-family: arial;
@@ -1231,7 +1231,8 @@
       var Module = {
         preRun: [],
         postRun: [],
-        arguments: ['./', 'test=meshed_batches'],
+        TOTAL_MEMORY: {{memory}},
+        arguments: {{{arguments}}},
         print: (function() {
           var element = document.getElementById('output');
           if (element) element.value = ''; // clear browser cache

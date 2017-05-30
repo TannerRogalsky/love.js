@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Game Title</title>
+    <title>{{title}}</title>
 
     <!-- Load custom style sheet -->
     <link rel="stylesheet" type="text/css" href="theme/love.css">
@@ -11,7 +11,7 @@
   <body>
     <center>
       <div>
-        <h1>Game Title</h1>
+        <h1>{{title}}</h1>
         <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
         <canvas id="loadingCanvas" oncontextmenu="event.preventDefault()" width="800" height="600"></canvas>
       </div>
@@ -42,7 +42,8 @@
       }, false);
 
       var Module = {
-        arguments: ['./', 'test=meshed_batches'],
+        arguments: {{{arguments}}},
+        TOTAL_MEMORY: {{memory}},
         printErr: console.error.bind(console),
         canvas: (function() {
           var canvas = document.getElementById('canvas');

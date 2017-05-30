@@ -1,0 +1,4 @@
+{
+  "presets": ["es2015", "es2016"],
+  "plugins": ["transform-react-jsx"]
+}

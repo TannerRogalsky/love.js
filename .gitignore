@@ -1,5 +1,4 @@
 .DS_Store
-debug/game.data
-debug/game.js
-release/game.data
-release/game.js
+node_modules
+dist
+build
