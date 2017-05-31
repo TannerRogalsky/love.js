@@ -46,6 +46,8 @@ function love.load(args)
     k_args[key] = value
   end
 
+  widest_text_width = math.min(widest_text_width, love.graphics.getWidth() * 0.25)
+
   test_canvas = love.graphics.newCanvas(love.graphics.getWidth() - widest_text_width, love.graphics.getHeight())
   if k_args.test and tests[k_args.test] then
     current_test = tests[k_args.test]()
@@ -65,7 +67,7 @@ end
 function love.update(dt)
   suit.layout:reset(0, 1)
   draw_test_list()
-  
+
   if current_test and current_test.update then
     current_test:update(dt)
   end
@@ -74,10 +76,10 @@ end
 function love.draw()
   love.graphics.setColor(0.2, 0.2, 0.2)
   love.graphics.rectangle('fill', 0, 0, widest_text_width, love.graphics.getHeight())
-  
+
   love.graphics.setColor(1, 1, 1)
   suit.draw()
-  
+
   if current_test and current_test.draw then
     love.graphics.setCanvas(test_canvas)
     love.graphics.clear()
