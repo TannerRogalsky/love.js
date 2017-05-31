@@ -10,7 +10,7 @@ const uuid = require('uuid');
 commander
   .version(packageJson.version)
   .option('-t, --title <string>', 'specify game name')
-  .option('-m, --memory [bytes]', 'how much memory your game will require [16777216]', parseInt, 16777216)
+  .option('-m, --memory [bytes]', 'how much memory your game will require [16777216]', 16777216)
   .arguments('<input> <output>')
   .action((input, output) => {
     commander.input = input;
