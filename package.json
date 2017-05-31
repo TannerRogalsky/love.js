@@ -1,6 +1,6 @@
 {
   "name": "love.js",
-  "version": "0.11.0-rc1",
+  "version": "0.11.0-rc2",
   "description": "Tooling to support the Emscripten port of LÖVE.",
   "engines": {
     "node": ">=7.10.0",
