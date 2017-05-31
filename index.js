@@ -104,6 +104,11 @@ getAdditionalInfo(commander).then((args) => {
   }
   const totalBuffer = Buffer.concat(fileBuffers);
 
+  if (args.memory < totalBuffer.length) {
+    throw new Error('The memory (-m, --memory [bytes]) allocated for your game should at least be as big as your assets. '
+      + `The total size of your assets is ${totalBuffer.length} bytes.`);
+  }
+
   const jsArgs = {
     create_file_paths: createFilePaths.join('\n      '),
     metadata: JSON.stringify({
@@ -142,4 +147,7 @@ getAdditionalInfo(commander).then((args) => {
     fs.copySync(`${srcDir}/debug/love.js`, `${outputDir}/debug/love.js`);
     fs.copySync(`${srcDir}/debug/pthread-main.js`, `${outputDir}/debug/pthread-main.js`);
   }
+}).catch((e) => {
+  console.error(e.message); // eslint-disable-line no-console
+  process.exit(1);
 });
