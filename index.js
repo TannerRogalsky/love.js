@@ -127,26 +127,14 @@ getAdditionalInfo(commander).then((args) => {
     const template = fs.readFileSync(`${srcDir}/release/index.html`, 'utf8');
     const renderedTemplate = mustache.render(template, args);
 
-    fs.mkdirsSync(`${outputDir}/release`);
-    fs.writeFileSync(`${outputDir}/release/index.html`, renderedTemplate);
-    fs.writeFileSync(`${outputDir}/release/game.js`, renderedGameTemplate);
-    fs.writeFileSync(`${outputDir}/release/game.data`, totalBuffer);
-    fs.copySync(`${srcDir}/release/love.js`, `${outputDir}/release/love.js`);
-    fs.copySync(`${srcDir}/release/love.js.mem`, `${outputDir}/release/love.js.mem`);
-    fs.copySync(`${srcDir}/release/pthread-main.js`, `${outputDir}/release/pthread-main.js`);
-    fs.copySync(`${srcDir}/release/theme`, `${outputDir}/release/theme`);
-  }
-
-  {
-    const template = fs.readFileSync(`${srcDir}/debug/index.html`, 'utf8');
-    const renderedTemplate = mustache.render(template, args);
-
-    fs.mkdirsSync(`${outputDir}/debug`);
-    fs.writeFileSync(`${outputDir}/debug/index.html`, renderedTemplate);
-    fs.writeFileSync(`${outputDir}/debug/game.js`, renderedGameTemplate);
-    fs.writeFileSync(`${outputDir}/debug/game.data`, totalBuffer);
-    fs.copySync(`${srcDir}/debug/love.js`, `${outputDir}/debug/love.js`);
-    fs.copySync(`${srcDir}/debug/pthread-main.js`, `${outputDir}/debug/pthread-main.js`);
+    fs.mkdirsSync(outputDir);
+    fs.writeFileSync(`${outputDir}/index.html`, renderedTemplate);
+    fs.writeFileSync(`${outputDir}/game.js`, renderedGameTemplate);
+    fs.writeFileSync(`${outputDir}/game.data`, totalBuffer);
+    fs.copySync(`${srcDir}/release/love.js`, `${outputDir}/love.js`);
+    fs.copySync(`${srcDir}/release/love.js.mem`, `${outputDir}/love.js.mem`);
+    fs.copySync(`${srcDir}/release/pthread-main.js`, `${outputDir}/pthread-main.js`);
+    fs.copySync(`${srcDir}/release/theme`, `${outputDir}/theme`);
   }
 }).catch((e) => {
   console.error(e.message); // eslint-disable-line no-console
