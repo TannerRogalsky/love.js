@@ -28,6 +28,10 @@ Love.js differs from [Motor](https://github.com/rnlf/motor) or [Punchdrunk](http
 ## Notes
 - I strongly recommend that you package your game for release using another tool before using this tool to build it for the web. Using something like [love-release](https://github.com/MisterDA/love-release) to remove unused files and metadata and compress the game into a .love file will make running the game much faster.
 - Because of the way that Emscripten works, you must specify the maximum amount of memory that your game will require. Make sure you test your game thoroughly to ensure that you've allocated enough memory because your game will crash if you have not.
+- The emscripten submodule is provided as a reference to what this project is currently being built against. It includes a few patches that are not currectly on the main branch of emscripten.
+  - mutex lock on main thread fix: https://github.com/kripken/emscripten/pull/5243
+  - MODULARIZE pthreads fix: https://github.com/kripken/emscripten/pull/5016
+  - openal overhaul and fixes: https://github.com/jpernst/emscripten/commits/incoming
 
 ## Contributing
 Please consider submitting a test. Any functionality that isn't covered in `spec/tests` would be very useful.
