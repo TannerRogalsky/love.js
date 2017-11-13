@@ -3,9 +3,9 @@ FilePersistence.__index = FilePersistence
 local test_file_name = 'file_persistence.txt'
 
 function create()
-  
+
   local v = 0
-  if love.filesystem.exists(test_file_name) then
+  if love.filesystem.getInfo(test_file_name) then
     local contents = love.filesystem.read(test_file_name)
     v = tonumber(contents) + 1
   end
