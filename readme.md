@@ -39,6 +39,14 @@ Python 2.7 will allow you to package your game into a format that Emscripten can
 1. If everything looks good, nagivate to the `release` folder. Package and test your game for release.
 2. The `release-compatibility` folder can now be copied to a webserver. A simple static webserver should suffice.
 
+#### Linux Shell Compile
+1. Change [path-to-game]@/ to where it is located, it is defaulted on the debug folder
+2. The release files is defaulted on release-compatibility, it generates a zip file from the game.data, game.js, love.js, consolewrapper.js and theme for fast server uploading
+3. It will automatically starts a simple server in `localhost:8000`
+
+#### Calling JS Functions from .lua files
+1. Full documentation and original project on [Love.js-Api-Player](https://github.com/MrcSnm/Love.js-Api-Player)
+
 #### Release Types
 `release-compatibility` is recommended if the performance it yields is adequate. The difference between `compatibility` and `performance` is that `performance` is compiled with exception catching disabled and memory growth disabled. This means that you will not be able to rely on catching exceptions from C++ in your code and you may need to set `TOTAL_MEMORY` on the `Module` object to indicate how much memory your game will require.
 
