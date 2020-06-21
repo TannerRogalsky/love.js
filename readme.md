@@ -45,7 +45,8 @@ Python 2.7 will allow you to package your game into a format that Emscripten can
 3. It will automatically starts a simple server in `localhost:8000`
 
 #### Calling JS Functions from .lua files
-1. Full documentation and original project on [Love.js-Api-Player](https://github.com/MrcSnm/Love.js-Api-Player)
+1. Full documentation and original project about calling JS Functions inside lua on **[Love.js-Api-Player](https://github.com/MrcSnm/Love.js-Api-Player)**
+2. It is able to **send** requests and **retrieve** data from the requests
 
 #### Release Types
 `release-compatibility` is recommended if the performance it yields is adequate. The difference between `compatibility` and `performance` is that `performance` is compiled with exception catching disabled and memory growth disabled. This means that you will not be able to rely on catching exceptions from C++ in your code and you may need to set `TOTAL_MEMORY` on the `Module` object to indicate how much memory your game will require.

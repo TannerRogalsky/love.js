@@ -1,25 +1,36 @@
 var newConsole = (function(oldConsole)
 {
     return {
-        __logHistory : [],
         log : function()
         {
             var data = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 data[_i] = arguments[_i];
             }
-            this.__logHistory.push(data[0]);
             if(data.length == 1) //Start looking for api's (And dont show anything)
             {
                 if(typeof(data[0]) == "string" && data[0].indexOf("callJavascriptFunction") != -1) //Contains function
                 {
-                    eval(data[0].split("callJavascriptFunction ")[1]);
+                    // oldConsole.log(data[0]);
+                    try
+                    {
+                        return eval(data[0].split("callJavascriptFunction ")[1]);
+                    }
+                    catch(e)
+                    {
+                        oldConsole.error("Something went wrong with your callJS: \nCode: " + data[0].split("callJavascriptFunction ")[1] + "\nError: '" + e.message + "'");
+                        return null;
+                    }
                 }
                 else
+                {
                     oldConsole.log(data[0]);
+                    return null;
+                }
             }
             else
                 oldConsole.log(data[0], data.splice(1));
+            return null;
         },
         warn : function()
         {
@@ -27,7 +38,6 @@ var newConsole = (function(oldConsole)
             for (var _i = 0; _i < arguments.length; _i++) {
                 data[_i] = arguments[_i];
             }
-            this.__logHistory.push(data[0]);
             if(data.length == 1)
                 oldConsole.warn(data[0]);
             else
@@ -39,7 +49,6 @@ var newConsole = (function(oldConsole)
             for (var _i = 0; _i < arguments.length; _i++) {
                 data[_i] = arguments[_i];
             }
-            this.__logHistory.push(data[0]);
             if(data.length == 1)
                 oldConsole.error(data[0]);
             else
