@@ -133,7 +133,8 @@ getAdditionalInfo(commander).then((args) => {
     fs.writeFileSync(`${outputDir}/game.data`, totalBuffer);
     fs.copySync(`${srcDir}/release/love.js`, `${outputDir}/love.js`);
     fs.copySync(`${srcDir}/release/love.js.mem`, `${outputDir}/love.js.mem`);
-    fs.copySync(`${srcDir}/release/pthread-main.js`, `${outputDir}/pthread-main.js`);
+    fs.copySync(`${srcDir}/release/love.worker.js`, `${outputDir}/love.worker.js`);
+    fs.copySync(`${srcDir}/release/love.wasm`, `${outputDir}/love.wasm`);
     fs.copySync(`${srcDir}/release/theme`, `${outputDir}/theme`);
   }
 }).catch((e) => {
