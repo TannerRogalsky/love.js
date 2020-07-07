@@ -7,37 +7,55 @@ _Request =
     timeOut = 2,
     id = '0'
 }
+local os = love.system.getOS()
 local __defaultErrorFunction = nil
 local isDebugActive = false
 
 JS = {}
 
 function JS.callJS(funcToCall)
-    local os = love.system.getOS()
     if(os == "Web") then
         print("callJavascriptFunction " .. funcToCall)
     end
 end
 
+--You can pass a set of commands here and, it is a syntactic sugar for executing many commands inside callJS, as it only calls a function
+--If you pass arguments to the func beyond the string, it will perform automatically string.format
+--Return statement is possible inside this structure
+--This will return a string containing a function to be called by JS.callJS
+local _unpack
+if(_VERSION == "Lua 5.1" or _VERSION == "LuaJIT") then
+    _unpack = unpack
+else
+    _unpack = table.unpack
+end
+function JS.stringFunc(str, ...)
+    str = "(function(){"..str.."})()"
+    if(#arg > 0) then
+        str = str:format(_unpack(arg))
+    end
+    str = str:gsub("[\n\t]", "")
+    return str
+end
+
 --The call will store in the webDB the return value from the function passed
 --it timeouts
 local function retrieveJS(funcToCall, id)
-    --Ignore on PC
-    local os = love.system.getOS()
-    if(os ~= "Web") then
-        return
-    end
     --Used for retrieveData function
     JS.callJS("FS.writeFile('"..love.filesystem.getSaveDirectory().."/__temp"..id.."', "..funcToCall..");")
 end
 
 --Call JS.newRequest instead
-function _Request:new(command, onDataLoaded, onError, timeout, id)
+function _Request:new(isPromise, command, onDataLoaded, onError, timeout, id)
     local obj = {}
     setmetatable(obj, self)
     obj.command = command
     obj.onError = onError or __defaultErrorFunction
-    retrieveJS(command, id)
+    if not isPromise then
+        retrieveJS(command, id) 
+    else
+        JS.callJS(command)
+    end
     obj.onDataLoaded = onDataLoaded
     obj.timeOut = (timeout == nil) and obj.timeOut or timeout
     obj.id = id
@@ -46,6 +64,11 @@ function _Request:new(command, onDataLoaded, onError, timeout, id)
     function obj:getData()
         --Try to read from webdb
         return love.filesystem.read("__temp"..self.id)
+    end
+
+    function obj:purgeData()
+        --Data must be purged for not allowing old data to be retrieved
+        love.filesystem.remove("__temp"..self.id)
     end
 
     function obj:update(dt)
@@ -58,6 +81,7 @@ function _Request:new(command, onDataLoaded, onError, timeout, id)
                     print("Data has been retrieved "..retData)
                 end
                 self.onDataLoaded(retData)
+                self:purgeData()
             else
                 self.onError(self.id)
             end
@@ -86,9 +110,27 @@ function retrieveData(dt)
     return isRetrieving
 end
 
+--May only be used for functions that don't return a promise
 function JS.newRequest(funcToCall, onDataLoaded, onError, timeout, optionalId)
-    table.insert(__requestQueue, _Request:new(funcToCall, onDataLoaded, onError, timeout or 5, optionalId or _requestCount))
+    if(os ~= "Web") then
+        return
+    end
+    table.insert(__requestQueue, _Request:new(false, funcToCall, onDataLoaded, onError, timeout or 5, optionalId or _requestCount))
 end
+
+--This function can be handled manually (in JS code)
+    --How to: add the function call when your events resolve: FS.writeFile("Put love.filesystem.getSaveDirectory here", "Pass a string here (NUMBER DONT WORK"))
+--Or it can be handled by Lua, it auto sets your data if you write the following command:
+    -- _$_(yourStringOrFunctionHere)
+function JS.newPromiseRequest(funcToCall, onDataLoaded, onError, timeout, optionalId)
+    if(os ~= "Web") then
+        return
+    end
+    optionalId = optionalId or _requestCount
+    funcToCall = funcToCall:gsub("_$_%(", "FS.writeFile('"..love.filesystem.getSaveDirectory().."/__temp"..optionalId.."', ")
+    table.insert(__requestQueue, _Request:new(true, funcToCall, onDataLoaded, onError, timeout or 5, optionalId))
+end
+
 
 --It receives the ID from ther request
 --Don't try printing the request.command, as it will execute the javascript command
