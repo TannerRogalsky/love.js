@@ -76,16 +76,15 @@ function _Request:new(isPromise, command, onDataLoaded, onError, timeout, id)
         local retData = self:getData()
 
         if((retData ~= nil and retData ~= "nil") or self.timeOut <= 0) then
-            if(retData ~= nil and retData ~= "nil") then
+            if(retData ~= nil and retData:match("ERROR") == nil) then
                 if isDebugActive then
                     print("Data has been retrieved "..retData)
                 end
                 self.onDataLoaded(retData)
-                self:purgeData()
             else
-                self.onError(self.id)
+                self.onError(self.id, retData)
             end
-            -- clearTemp(self.id)
+            self:purgeData()
             return false
         else
             return true
@@ -95,7 +94,7 @@ function _Request:new(isPromise, command, onDataLoaded, onError, timeout, id)
 end
 
 --Place this function on love.update and set it to return if it returns false (This API is synchronous)
-function retrieveData(dt)
+function JS.retrieveData(dt)
     local isRetrieving = #__requestQueue ~= 0
     local deadRequests = {}
     for i = 1, #__requestQueue do
@@ -105,7 +104,10 @@ function retrieveData(dt)
         end
     end
     for i = 1, #deadRequests do
-        __requestQueue[deadRequests[i]] = nil
+        if(isDebugActive) then
+            print("Request died: "..deadRequests[i])
+        end
+        table.remove(__requestQueue, deadRequests[i])
     end
     return isRetrieving
 end
@@ -138,8 +140,12 @@ function JS.setDefaultErrorFunction(func)
     __defaultErrorFunction = func
 end
 
-JS.setDefaultErrorFunction(function(id)
+JS.setDefaultErrorFunction(function(id, error)
     if( isDebugActive ) then
-        print("Data could not be loaded for id:'"..id.."'")
+        local msg = "Data could not be loaded for id:'"..id.."'"
+        if(error)then
+            msg = msg.."\nError: "..error
+        end
+        print(msg)
     end
 end)
