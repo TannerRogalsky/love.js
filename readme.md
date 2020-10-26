@@ -1,3 +1,7 @@
+UNMAINTAINED
+===========
+This project has been inactive for a while! You're probably looking for https://github.com/Davidobot/love.js
+
 Love.js
 ============
 
