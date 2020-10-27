@@ -34,13 +34,6 @@
         loadingContext.fillText("Powered By LÖVE.", canvas.scrollWidth / 2, canvas.scrollHeight / 4 * 3);
       }
 
-      window.addEventListener("keydown", function(e) {
-        // space and arrow keys
-        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-          e.preventDefault();
-        }
-      }, false);
-
       var Module = {
         arguments: ['./'],
         printErr: console.error.bind(console),
@@ -81,8 +74,24 @@
         };
       };
     </script>
+    <script>
+      window.onload = function () 
+      {
+          window.focus(); 
+          //Handle after load
+          window.addEventListener("keydown", function(e) {
+            // space and arrow keys
+            if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+              e.preventDefault();
+            }
+          }, false);
+      };
+      window.onclick = function () { window.focus(); };
+    </script>
     <script type="text/javascript" src="game.js"></script>
     <script async type="text/javascript" src="love.js"></script>
+    <script type="text/javascript" src="consolewrapper.js"></script>
+
     <footer>
       <p>Built with <a href="https://github.com/TannerRogalsky/love.js">love.js</a></p>
     </footer>

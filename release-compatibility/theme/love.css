@@ -41,8 +41,9 @@ a:hover {
 }
 
 /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+/* Change from none to block, sometimes the canvas would not be displayed, it will make easier fixes */
 #canvas {
     padding-right: 0;
-    display: none;
+    display: block; 
     border: 0px none;
 }
